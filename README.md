@@ -62,3 +62,24 @@ Abstraction -> is needed for performing CRUD operations.
 
 Code example: public interface NoteRepository extends JpaRepository<NoteEntity, Long>
 NoteEntity -> is entity i created previously to represend database tables in Java.
+
+
+
+CRUDService -> Class that completely operates with DB. Performs CRUD operations. Needs Repository Interface for performing actions. In my case it uses NoteRepository.
+
+## 🎯 What is the Controller? ##
+
+The Controller is the entry point for HTTP requests — it connects your frontend (e.g. forms, buttons, URLs) to your backend logic (services, repositories).
+
+In a layered Spring Boot app, the controller:
+
+Accepts HTTP requests (GET, POST, PUT, DELETE, etc.)
+
+Maps them to Java methods
+
+Interacts with the service layer
+
+Returns a view (HTML) or JSON response
+
+TODO: Define needed API's for a web page
+TODO: WRITE A CONTROLLER!
