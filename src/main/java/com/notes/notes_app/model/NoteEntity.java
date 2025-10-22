@@ -11,18 +11,13 @@ public class NoteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
     @Column(columnDefinition = "TEXT")
     private String content;
-
     @CreationTimestamp
     private LocalDateTime createdAt;
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
     private Boolean pinned;
 
     public Long getId() {

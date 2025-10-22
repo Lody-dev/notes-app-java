@@ -1,128 +1,87 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+<!--    <title>Simple Notes App</title>-->
+<!--    <link-->
+<!--            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"-->
+<!--            rel="stylesheet"-->
+<!--    />-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<header>-->
+<!--    Simple Notes App-->
+<!--</header>-->
+<!--<hr />-->
+
+<!--<main class="notes-container">-->
+
+<!--    &lt;!&ndash; New Note as a POST form &ndash;&gt;-->
+<!--    <form action="/new-note" method="get" class="new-note-form">-->
+<!--        <button type="submit" class="new-note-btn">+ New</button>-->
+<!--    </form>-->
+
+<!--    <h1>All Notes</h1>-->
+<!--    <ul>-->
+<!--        <li th:each="note : ${notes}">-->
+<!--            <span th:text="${note.title}">Note Title</span> - -->
+<!--            <span th:text="${note.content}">Note Content</span>-->
+<!--        </li>-->
+<!--    </ul>-->
+
+<!--</main>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Simple Notes App</title>
+
+    <!-- Bootstrap 5 CSS -->
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
             rel="stylesheet"
     />
-    <style>
-        body {
-            background-color: #f8f9fa;
-            color: #000;
-            font-family: Arial, sans-serif;
-        }
-        header {
-            font-weight: bold;
-            font-size: 1.75rem;
-            padding: 1rem 0;
-            text-align: center;
-            color: #000;
-        }
-        hr {
-            border-top: 2px solid #000;
-            margin-bottom: 1.5rem;
-        }
-        .notes-container {
-            max-width: 900px;
-            margin: 0 auto 3rem auto;
-            padding: 0 1rem;
-        }
-        .note-form {
-            margin-bottom: 1rem;
-        }
-        .note-button {
-            width: 100%;
-            text-align: left;
-            background-color: #fff;
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .note-button:hover {
-            background-color: #f1f1f1;
-        }
-        .note-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 0.25rem;
-        }
-        .note-desc {
-            font-size: 0.95rem;
-            color: #444;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 450px;
-        }
-        .note-actions button {
-            border: none;
-            background: none;
-            font-size: 1.5rem;
-            padding: 0 0.5rem;
-            cursor: pointer;
-            color: black;
-        }
-        .note-actions .star-btn:hover {
-            color: gold;
-        }
-        .note-actions .delete-btn:hover {
-            color: red;
-        }
-        .new-note-form {
-            margin-bottom: 1.5rem;
-        }
-        .new-note-btn {
-            width: 100%;
-            border: 2px dashed #000;
-            background: none;
-            color: #000;
-            font-weight: 700;
-            font-size: 1.25rem;
-            border-radius: 12px;
-            padding: 1.2rem 0;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .new-note-btn:hover {
-            background-color: #e9ecef;
-        }
-    </style>
 </head>
-<body>
+<body class="bg-light text-dark">
 
-<header>
-    Simple Notes App
-</header>
-<hr />
+<!-- Navbar/Header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="/">📝 Simple Notes App</a>
+    </div>
+</nav>
 
-<main class="notes-container">
+<!-- Main container -->
+<div class="container">
 
-    <!-- New Note as a POST form -->
-    <form action="/note" method="post" class="new-note-form">
-        <button type="submit" class="new-note-btn">+ New</button>
-    </form>
+    <!-- New Note Button -->
+    <div class="d-flex justify-content-end mb-3">
+        <form action="/new-note" method="get">
+            <button type="submit" class="btn btn-success">+ New Note</button>
+        </form>
+    </div>
 
-    <!--
-    <form action="/notes/1" method="post" class="note-form">
-        <button type="submit" class="note-button">
-            <div>
-                <div class="note-title">Meeting notes</div>
-                <div class="note-desc">Summary of the project kickoff meeting</div>
+    <!-- Notes List -->
+    <h2 class="mb-3">All Notes</h2>
+    <div class="list-group">
+        <div class="list-group-item list-group-item-action mb-2"
+             th:each="note : ${notes}">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1" th:text="${note.title}">Note Title</h5>
             </div>
-        </button>
-    </form>
-    -->
-</main>
+            <p class="mb-1" th:text="${note.content}">Note content goes here...</p>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
+
 
