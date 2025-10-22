@@ -67,17 +67,33 @@
         </form>
     </div>
 
-    <!-- Notes List -->
+<!--    &lt;!&ndash; Notes List &ndash;&gt;-->
+<!--    <h2 class="mb-3">All Notes</h2>-->
+<!--    <div class="list-group">-->
+<!--        <div class="list-group-item list-group-item-action mb-2"-->
+<!--             th:each="note : ${notes}">-->
+<!--            <div class="d-flex w-100 justify-content-between">-->
+<!--                <h5 class="mb-1" th:text="${note.title}">Note Title</h5>-->
+<!--            </div>-->
+<!--            <p class="mb-1" th:text="${note.content}">Note content goes here...</p>-->
+<!--        </div>-->
+<!--    </div>-->
     <h2 class="mb-3">All Notes</h2>
     <div class="list-group">
-        <div class="list-group-item list-group-item-action mb-2"
-             th:each="note : ${notes}">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1" th:text="${note.title}">Note Title</h5>
-            </div>
-            <p class="mb-1" th:text="${note.content}">Note content goes here...</p>
-        </div>
+        <form th:each="note : ${notes}"
+              th:action="@{/note}"
+              method="post"
+              class="mb-2">
+            <input type="hidden" name="id" th:value="${note.id}" />
+            <button type="submit" class="list-group-item list-group-item-action btn btn-link text-start w-100">
+                <div class="d-flex justify-content-between">
+                    <h5 class="mb-1" th:text="${note.title}">Note Title</h5>
+                </div>
+                <p class="mb-1" th:text="${note.content}">Note content goes here...</p>
+            </button>
+        </form>
     </div>
+
 
 </div>
 

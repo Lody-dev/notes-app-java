@@ -44,6 +44,13 @@ public class httpController {
         return "new-note";
     }
 
+    @PostMapping("/note")
+    public String updateNote(@ModelAttribute NoteEntity noteEntity, Model model) {
+        NoteEntity note = noteRepository.findById(noteEntity.getId()).get();
+        model.addAttribute("note", note);
+        return "redirect:/new-note";
+    }
+
     @PostMapping("/submit")
     public String postNote(@ModelAttribute NoteEntity noteEntity) {
         noteEntity.setPinned(false);
