@@ -67,17 +67,6 @@
         </form>
     </div>
 
-<!--    &lt;!&ndash; Notes List &ndash;&gt;-->
-<!--    <h2 class="mb-3">All Notes</h2>-->
-<!--    <div class="list-group">-->
-<!--        <div class="list-group-item list-group-item-action mb-2"-->
-<!--             th:each="note : ${notes}">-->
-<!--            <div class="d-flex w-100 justify-content-between">-->
-<!--                <h5 class="mb-1" th:text="${note.title}">Note Title</h5>-->
-<!--            </div>-->
-<!--            <p class="mb-1" th:text="${note.content}">Note content goes here...</p>-->
-<!--        </div>-->
-<!--    </div>-->
     <h2 class="mb-3">All Notes</h2>
     <div class="list-group">
         <form th:each="note : ${notes}"
@@ -93,8 +82,6 @@
             </button>
         </form>
     </div>
-
-
 </div>
 
 </body>

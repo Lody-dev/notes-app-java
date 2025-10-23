@@ -55,4 +55,8 @@ public class NoteEntity {
     public void setPinned(Boolean pinned) {
         this.pinned = pinned;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

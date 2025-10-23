@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Post Form</title>
+</head>
+<body>
+<h1>Submit Your Post</h1>
+
+<!-- Bind form to the 'note' object -->
+<form th:action="@{/submit}" method="post" th:object="${note}">
+
+    <!-- Title input -->
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" th:field="*{title}" /><br><br>
+
+    <!-- Content text area -->
+    <label for="content">Content:</label><br>
+    <textarea id="content" rows="5" cols="40" th:field="*{content}"></textarea><br><br>
+
+    <!-- Hidden ID field (important for updates) -->
+    <input type="hidden" th:field="*{id}" />
+
+    <!-- Submit button -->
+    <button type="submit">Submit</button>
+
+</form>
+</body>
+</html>
