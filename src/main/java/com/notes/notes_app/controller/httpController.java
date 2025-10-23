@@ -25,7 +25,7 @@ public class httpController {
     @GetMapping("/")
     public String noteList(Model model) {
         int i = -1;
-        List<NoteEntity> notes= noteRepository.;
+        List<NoteEntity> notes= noteRepository.findAll();
         while(++i < notes.size())
         {
             if(notes.get(i).getTitle().equals("") && !notes.get(i).getContent().equals(""))
