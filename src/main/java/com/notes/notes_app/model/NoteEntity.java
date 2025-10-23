@@ -14,8 +14,6 @@ public class NoteEntity {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String content;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
     private Boolean pinned;
@@ -38,10 +36,6 @@ public class NoteEntity {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
     public LocalDateTime getUpdatedAt() {

@@ -36,9 +36,12 @@
         <form th:each="note : ${notes}"
               th:action="@{/note}"
               method="post"
-              class="mb-2">
+              class="mb-2 d-flex align-items-center">
+
             <input type="hidden" name="id" th:value="${note.id}" />
-            <button type="submit" class="list-group-item list-group-item-action btn btn-link text-start w-100">
+
+            <button type="submit" name="action" value="edit"
+                    class="list-group-item list-group-item-action btn btn-link text-start flex-grow-1 me-2">
                 <div class="d-flex justify-content-between">
                     <h5 class="mb-1" th:text="${note.title}">Note Title</h5>
                 </div>
@@ -46,6 +49,7 @@
             </button>
         </form>
     </div>
+
 </div>
 
 </body>
