@@ -32,22 +32,26 @@
     </div>
 
     <h2 class="mb-3">All Notes</h2>
-    <div class="list-group">
-        <form th:each="note : ${notes}"
-              th:action="@{/note}"
-              method="post"
-              class="mb-2 d-flex align-items-center">
+    <div th:each="note : ${notes}" class="mb-2">
+        <div class="d-flex align-items-stretch">
 
-            <input type="hidden" name="id" th:value="${note.id}" />
-
-            <button type="submit" name="action" value="edit"
-                    class="list-group-item list-group-item-action btn btn-link text-start flex-grow-1 me-2">
-                <div class="d-flex justify-content-between">
-                    <h5 class="mb-1" th:text="${note.title}">Note Title</h5>
-                </div>
-                <p class="mb-1" th:text="${note.content}">Note content goes here...</p>
-            </button>
-        </form>
+            <!-- Note (Edit) Form -->
+            <form th:action="@{/note}" method="post" class="flex-grow-1 me-2">
+                <input type="hidden" name="id" th:value="${note.id}" />
+                <button type="submit" name="action" value="edit"
+                        class="list-group-item list-group-item-action text-start w-100 border rounded shadow-sm p-3 note-item">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="mb-1" th:text="${note.title}">Untitled Note</h5>
+                    </div>
+                    <p class="mb-1" th:text="${note.content}">No content...</p>
+                </button>
+            </form>
+            <!-- Delete Form -->
+            <form th:action="@{/delete}" method="post" autocomplete="off" class="d-flex align-items-center">
+                <input type="hidden" name="id" th:value="${note.id}" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
     </div>
 
 </div>

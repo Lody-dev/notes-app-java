@@ -57,4 +57,10 @@ public class httpController {
         model.addAttribute("note", note);
         return "edit-note";
     }
+    @PostMapping("/delete")
+    public String deleteNote(@ModelAttribute NoteEntity noteEntity)
+    {
+        noteRepository.delete(noteEntity);
+        return "redirect:/";
+    }
 }
