@@ -24,8 +24,14 @@ public class httpController {
 
     @GetMapping("/")
     public String noteList(Model model) {
+        String status;
+
         int i = -1;
         List<NoteEntity> notes= noteRepository.findAllByOrderByUpdatedAtDesc();
+        if(notes.size()>0)
+            status = "All notes";
+        else
+            status = "No notes here, add one :)";
         while(++i < notes.size())
         {
             if(notes.get(i).getTitle().equals("") && !notes.get(i).getContent().equals(""))
@@ -36,6 +42,7 @@ public class httpController {
                 notes.get(i).setContent(notes.get(i).getContent().substring(0, 50) + "...");
         }
         model.addAttribute("notes", notes);
+        model.addAttribute("status", status);
         return "index"; // corresponds to index.html in templates folder
     }
 

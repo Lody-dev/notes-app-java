@@ -31,7 +31,7 @@
         </form>
     </div>
 
-    <h2 class="mb-3">All Notes</h2>
+    <h2 class="mb-3" th:text="${status}">Default Text</h2>
     <div th:each="note : ${notes}" class="mb-2">
         <div class="d-flex align-items-stretch">
 
@@ -46,11 +46,17 @@
                     <p class="mb-1" th:text="${note.content}">No content...</p>
                 </button>
             </form>
+<!--            &lt;!&ndash; Pin Form &ndash;&gt;-->
+<!--            <form th:action="@{/pin}" method="post" autocomplete="off" class="d-flex align-items-center me-2">-->
+<!--                <input type="hidden" name="id" th:value="${note.id}" />-->
+<!--                <button type="submit" class="btn btn-warning">Pin</button>-->
+<!--            </form>-->
             <!-- Delete Form -->
             <form th:action="@{/delete}" method="post" autocomplete="off" class="d-flex align-items-center">
                 <input type="hidden" name="id" th:value="${note.id}" />
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
+
         </div>
     </div>
 

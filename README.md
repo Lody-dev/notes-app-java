@@ -81,5 +81,30 @@ Interacts with the service layer
 
 Returns a view (HTML) or JSON response
 
-TODO: Define needed API's for a web page
-TODO: WRITE A CONTROLLER!
+DONE: Define needed API's for a web page
+DONE: WRITE A CONTROLLER!
+
+A bunch of controllers are written.
+
+The only last thing i want to implement is pin/unpin logic
+so i can pin important notes
+
+Feature: ability to pin the important (or not) note.
+
+What is needed?
+Goal 1:
+0) A button that sends note id via post ("/pin" action) requests to the back end.
+1) A controller that controls ("/pin" route) with logic.
+    1.1) Logic description: if (isPinned) {isPinned = false} else {isPinned = true}
+         so it works like a switch.
+
+After previous steps satisfied -> the user will be able to change isPinned value via front end.
+
+Goal 2:
+0) Index page that correctly visually displays pinned/unpinned status;
+   0.1) tymeleaf template that recieves isPinned value and according to that value is will decide what 
+        info to show
+1) Index page that prefers to display pinned notes first. Most recent updated pinned note should be preffered.
+   1.1) Controller Logic: New query, instead of "order by updatedAt desc" use "oreder by isPinned desc, updatedAt desc"
+
+
