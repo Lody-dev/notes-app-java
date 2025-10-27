@@ -46,11 +46,11 @@
                     <p class="mb-1" th:text="${note.content}">No content...</p>
                 </button>
             </form>
-<!--            &lt;!&ndash; Pin Form &ndash;&gt;-->
-<!--            <form th:action="@{/pin}" method="post" autocomplete="off" class="d-flex align-items-center me-2">-->
-<!--                <input type="hidden" name="id" th:value="${note.id}" />-->
-<!--                <button type="submit" class="btn btn-warning">Pin</button>-->
-<!--            </form>-->
+            <!-- Pin Form -->
+            <form th:action="@{/pin}" method="post" autocomplete="off" class="d-flex align-items-center me-2">
+                <input type="hidden" name="id" th:value="${note.id}" />
+                <button type="submit" class="btn btn-warning">Pin</button>
+            </form>
             <!-- Delete Form -->
             <form th:action="@{/delete}" method="post" autocomplete="off" class="d-flex align-items-center">
                 <input type="hidden" name="id" th:value="${note.id}" />

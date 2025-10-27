@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +65,19 @@ public class httpController {
         model.addAttribute("note", note);
         return "edit-note";
     }
+
+//    @PostMapping("/pin")
+//    public String pinNote(@RequestParam Long id) {
+//        NoteEntity note = noteRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid note ID: " + id));
+//        if (noteEntity.getPinned())
+//            noteEntity.setPinned(false);
+//        else
+//            noteEntity.setPinned(true);
+//        noteRepository.save(noteEntity);
+//        return "redirect:/";
+//    }
+
     @PostMapping("/delete")
     public String deleteNote(@ModelAttribute NoteEntity noteEntity)
     {
