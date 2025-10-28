@@ -170,5 +170,5 @@ The **Controller** is the entry point for HTTP requests — it connects the **fr
    ```sql
    ORDER BY is_pinned DESC, updated_at DESC;
    ```
-
+✅ DONE: Pin feature is completely working 
 ---
