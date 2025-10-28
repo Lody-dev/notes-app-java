@@ -28,7 +28,7 @@ public class httpController {
         String status;
 
         int i = -1;
-        List<NoteEntity> notes= noteRepository.findAllByOrderByUpdatedAtDesc();
+        List<NoteEntity> notes= noteRepository.findAllByOrderByPinnedDescUpdatedAtDesc();
         if(notes.size()>0)
             status = "All notes";
         else
@@ -54,7 +54,12 @@ public class httpController {
 
     @PostMapping("/submit")
     public String postNote(@ModelAttribute NoteEntity noteEntity) {
-        noteEntity.setPinned(false);
+        if(noteEntity.getPinned() == null)
+            noteEntity.setPinned(false);
+        if(noteEntity.getPinned())
+            noteEntity.setPinned(true);
+        else
+            noteEntity.setPinned(false);
         noteRepository.save(noteEntity);
         return "redirect:/";
     }
@@ -66,17 +71,17 @@ public class httpController {
         return "edit-note";
     }
 
-//    @PostMapping("/pin")
-//    public String pinNote(@RequestParam Long id) {
-//        NoteEntity note = noteRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid note ID: " + id));
-//        if (noteEntity.getPinned())
-//            noteEntity.setPinned(false);
-//        else
-//            noteEntity.setPinned(true);
-//        noteRepository.save(noteEntity);
-//        return "redirect:/";
-//    }
+    @PostMapping("/pin")
+    public String pinNote(@RequestParam Long id) {
+        NoteEntity note = noteRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid note ID: " + id));
+        if (note.getPinned())
+            note.setPinned(false);
+        else
+            note.setPinned(true);
+        noteRepository.save(note);
+        return "redirect:/";
+    }
 
     @PostMapping("/delete")
     public String deleteNote(@ModelAttribute NoteEntity noteEntity)

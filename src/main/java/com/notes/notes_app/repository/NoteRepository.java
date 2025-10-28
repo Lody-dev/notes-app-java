@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface NoteRepository extends JpaRepository<NoteEntity, Long> {
 
-    List<NoteEntity> findAllByOrderByUpdatedAtDesc();
+    List<NoteEntity> findAllByOrderByPinnedDescUpdatedAtDesc();
 
 }
