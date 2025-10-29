@@ -1,5 +1,6 @@
 # 🗒️ Java Notes App — Layered Architecture
-
+## Demo
+![Demo](demo.gif)
 ## ⚙️ Dependencies Used
 
 - **Spring Web**
