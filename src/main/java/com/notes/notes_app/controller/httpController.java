@@ -60,6 +60,8 @@ public class httpController {
             noteEntity.setPinned(true);
         else
             noteEntity.setPinned(false);
+        if(noteEntity.getTitle().length() > 255)
+            throw new TitleTooLongException("Title too long");
         noteRepository.save(noteEntity);
         return "redirect:/";
     }
