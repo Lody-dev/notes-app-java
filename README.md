@@ -172,3 +172,4 @@ The **Controller** is the entry point for HTTP requests — it connects the **fr
    ```
 ✅ DONE: Pin feature is completely working 
 ---
+✅ DONE: Global exception handler

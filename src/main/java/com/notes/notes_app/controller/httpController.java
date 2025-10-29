@@ -66,7 +66,8 @@ public class httpController {
 
     @PostMapping("/note")
     public String updateNote(@ModelAttribute NoteEntity noteEntity, Model model) {
-        Optional<NoteEntity> note = noteRepository.findById(noteEntity.getId());
+        NoteEntity note = noteRepository.findById(noteEntity.getId())
+                .orElseThrow(() -> new NoteNotFoundException("Note with id " + noteEntity.getId() + " could not be found\nTry edit less html"));
         model.addAttribute("note", note);
         return "edit-note";
     }
@@ -74,7 +75,7 @@ public class httpController {
     @PostMapping("/pin")
     public String pinNote(@RequestParam Long id) {
         NoteEntity note = noteRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid note ID: " + id));
+                .orElseThrow(() -> new NoteNotFoundException("Note with id " + id + " could not be pinned\nTry edit less html"));
         if (note.getPinned())
             note.setPinned(false);
         else
@@ -86,6 +87,8 @@ public class httpController {
     @PostMapping("/delete")
     public String deleteNote(@ModelAttribute NoteEntity noteEntity)
     {
+        noteRepository.findById(noteEntity.getId())
+                .orElseThrow(() -> new NoteNotFoundException("Note with id " + noteEntity.getId() + " could not be deleted\nTry edit less html"));
         noteRepository.delete(noteEntity);
         return "redirect:/";
     }
