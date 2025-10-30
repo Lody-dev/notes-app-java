@@ -53,15 +53,17 @@ public class httpController {
     }
 
     @PostMapping("/submit")
-    public String postNote(@ModelAttribute NoteEntity noteEntity) {
+    public String postNote(@ModelAttribute NoteEntity noteEntity, Model model) {
         if(noteEntity.getPinned() == null)
             noteEntity.setPinned(false);
         if(noteEntity.getPinned())
             noteEntity.setPinned(true);
         else
             noteEntity.setPinned(false);
-        if(noteEntity.getTitle().length() > 255)
-            throw new TitleTooLongException("Title too long");
+        if(noteEntity.getTitle().length() > 255) {
+            model.addAttribute("error", "Title too long");
+            return "edit-note";
+        }
         noteRepository.save(noteEntity);
         return "redirect:/";
     }

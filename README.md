@@ -175,4 +175,7 @@ The **Controller** is the entry point for HTTP requests — it connects the **fr
 ---
 ✅ DONE: Global exception handler
 
-TODO: Handle Tittle too long exception!
+I meesed up a bit with my architecture... I didn't used service layer at all and now i 
+have to rewrite like 5 functions I use in controller. 
+
+I can't even write unit tests. 
