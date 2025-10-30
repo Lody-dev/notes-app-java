@@ -1,4 +1,5 @@
 package com.notes.notes_app.controller;
+import com.notes.notes_app.service.NoteService;
 import org.springframework.ui.Model;
 import com.notes.notes_app.model.NoteEntity;
 import com.notes.notes_app.repository.NoteRepository;
@@ -15,36 +16,19 @@ import java.util.Optional;
 @Controller
 public class httpController {
 
-    @Autowired
-    private final NoteRepository noteRepository;
+    private final NoteService noteService;
 
-
-    public httpController(NoteRepository noteRepository) {
-        this.noteRepository = noteRepository;
+    public httpController(NoteService noteService)
+    {
+        this.noteService = noteService;
     }
 
     @GetMapping("/")
-    public String noteList(Model model) {
-        String status;
-
-        int i = -1;
-        List<NoteEntity> notes= noteRepository.findAllByOrderByPinnedDescUpdatedAtDesc();
-        if(notes.size()>0)
-            status = "All notes";
-        else
-            status = "No notes here, add one :)";
-        while(++i < notes.size())
-        {
-            if(notes.get(i).getTitle().equals("") && !notes.get(i).getContent().equals(""))
-                notes.get(i).setTitle("Empty title");
-            if(notes.get(i).getContent().equals("") && notes.get(i).getTitle().equals(""))
-                notes.get(i).setTitle("Empty Note");
-            if(notes.get(i).getContent().length() > 50)
-                notes.get(i).setContent(notes.get(i).getContent().substring(0, 50) + "...");
-        }
+    public String loadMainPage(Model model) {
+        List<NoteEntity> notes = noteService.findOrderedNotes();
         model.addAttribute("notes", notes);
-        model.addAttribute("status", status);
-        return "index"; // corresponds to index.html in templates folder
+        model.addAttribute("status", noteService.checkListStatus(notes));
+        return "index";
     }
 
     @GetMapping("/new-note")
@@ -52,48 +36,37 @@ public class httpController {
         return "new-note";
     }
 
+    //Done refactoring
     @PostMapping("/submit")
-    public String postNote(@ModelAttribute NoteEntity noteEntity, Model model) {
-        if(noteEntity.getPinned() == null)
-            noteEntity.setPinned(false);
-        if(noteEntity.getPinned())
-            noteEntity.setPinned(true);
-        else
-            noteEntity.setPinned(false);
-        if(noteEntity.getTitle().length() > 255) {
-            model.addAttribute("error", "Title too long");
-            return "edit-note";
+    public String postNote(@ModelAttribute NoteEntity noteEntity, Model model)
+    {
+        if(noteService.isTitleTooLong(noteEntity.getTitle())) {
+            throw new TitleTooLongException("Title too long");
         }
-        noteRepository.save(noteEntity);
+
+        noteService.saveEditedNote(noteEntity);
         return "redirect:/";
     }
 
+    //Done refactoring
     @PostMapping("/note")
     public String updateNote(@ModelAttribute NoteEntity noteEntity, Model model) {
-        NoteEntity note = noteRepository.findById(noteEntity.getId())
-                .orElseThrow(() -> new NoteNotFoundException("Note with id " + noteEntity.getId() + " could not be found\nTry edit less html"));
-        model.addAttribute("note", note);
+        model.addAttribute("note", noteService.updateNote(noteEntity));
         return "edit-note";
     }
 
+    //Done refactoring
     @PostMapping("/pin")
     public String pinNote(@RequestParam Long id) {
-        NoteEntity note = noteRepository.findById(id)
-                .orElseThrow(() -> new NoteNotFoundException("Note with id " + id + " could not be pinned\nTry edit less html"));
-        if (note.getPinned())
-            note.setPinned(false);
-        else
-            note.setPinned(true);
-        noteRepository.save(note);
+        noteService.pinNote(id);
         return "redirect:/";
     }
 
+    //Done refactoring
     @PostMapping("/delete")
     public String deleteNote(@ModelAttribute NoteEntity noteEntity)
     {
-        noteRepository.findById(noteEntity.getId())
-                .orElseThrow(() -> new NoteNotFoundException("Note with id " + noteEntity.getId() + " could not be deleted\nTry edit less html"));
-        noteRepository.delete(noteEntity);
+        noteService.deleteNote(noteEntity);
         return "redirect:/";
     }
 }
