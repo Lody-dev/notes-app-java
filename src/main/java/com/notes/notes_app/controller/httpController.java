@@ -39,7 +39,6 @@ public class httpController {
         if(noteService.isTitleTooLong(noteEntity.getTitle())) {
             throw new TitleTooLongException("Title too long");
         }
-
         noteService.saveEditedNote(noteEntity);
         return "redirect:/";
     }

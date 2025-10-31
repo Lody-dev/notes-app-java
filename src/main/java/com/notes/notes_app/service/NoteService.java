@@ -24,7 +24,7 @@ public class NoteService
     public List<NoteEntity> findOrderedNotes()
     {
         int i;
-        List<NoteEntity> notes= noteRepository.findAllByOrderByPinnedDescUpdatedAtDesc();
+        List<NoteEntity> notes = noteRepository.findAllByOrderByPinnedDescUpdatedAtDesc();
 
         i = -1;
         while(++i < notes.size())
