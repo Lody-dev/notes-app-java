@@ -58,13 +58,6 @@ public class NoteService
     }
 
     public void saveEditedNote(NoteEntity noteEntity) {
-        if(noteEntity.getPinned() == null)
-            noteEntity.setPinned(false);
-
-        if(noteEntity.getPinned())
-            noteEntity.setPinned(true);
-        else
-            noteEntity.setPinned(false);
         noteRepository.save(noteEntity);
     }
 

@@ -2,8 +2,6 @@ package com.notes.notes_app.controller;
 import com.notes.notes_app.service.NoteService;
 import org.springframework.ui.Model;
 import com.notes.notes_app.model.NoteEntity;
-import com.notes.notes_app.repository.NoteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class httpController {
@@ -36,9 +33,8 @@ public class httpController {
         return "new-note";
     }
 
-    //Done refactoring
     @PostMapping("/submit")
-    public String postNote(@ModelAttribute NoteEntity noteEntity, Model model)
+    public String postNote(@ModelAttribute NoteEntity noteEntity)
     {
         if(noteService.isTitleTooLong(noteEntity.getTitle())) {
             throw new TitleTooLongException("Title too long");
@@ -48,21 +44,18 @@ public class httpController {
         return "redirect:/";
     }
 
-    //Done refactoring
     @PostMapping("/note")
     public String updateNote(@ModelAttribute NoteEntity noteEntity, Model model) {
         model.addAttribute("note", noteService.updateNote(noteEntity));
         return "edit-note";
     }
 
-    //Done refactoring
     @PostMapping("/pin")
     public String pinNote(@RequestParam Long id) {
         noteService.pinNote(id);
         return "redirect:/";
     }
 
-    //Done refactoring
     @PostMapping("/delete")
     public String deleteNote(@ModelAttribute NoteEntity noteEntity)
     {
