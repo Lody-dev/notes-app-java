@@ -79,7 +79,7 @@ public class NoteService
 
     public NoteEntity updateNote(NoteEntity noteEntity) {
         NoteEntity note = noteRepository.findById(noteEntity.getId())
-                .orElseThrow(() -> new NoteNotFoundException("Note with id " + noteEntity.getId() + " could not be found\nTry edit less html"));
+                .orElseThrow(() -> new NoteNotFoundException("<p>Note with id " + noteEntity.getId() + " could not be found</p><p>Try edit less html</p>"));
         return note;
     }
 }
