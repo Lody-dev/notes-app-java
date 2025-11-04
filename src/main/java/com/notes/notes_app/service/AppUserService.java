@@ -1,20 +1,25 @@
 package com.notes.notes_app.service;
 
+import com.notes.notes_app.controller.DuplicateUsernameException;
 import com.notes.notes_app.model.AppUser;
 import com.notes.notes_app.repository.AppUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AppUserService implements UserDetailsService
 {
-    private AppUserRepository appUserRepository;
+    private final AppUserRepository appUserRepository;
+    private final PasswordEncoder encoder;
 
-    public AppUserService (AppUserRepository appUserRepository) {
+    public AppUserService (AppUserRepository appUserRepository,  PasswordEncoder encoder) {
         this.appUserRepository = appUserRepository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -26,5 +31,16 @@ public class AppUserService implements UserDetailsService
                 .password(u.getPassword())
                 .authorities(new SimpleGrantedAuthority(u.getRol()))
                 .build();
+    }
+
+    public void register(String username, String password)
+    {
+        if(appUserRepository.existsByUsername(username))
+            throw new DuplicateUsernameException("Username already taken");
+        AppUser u = new AppUser();
+        u.setUsername(username);
+        u.setPassword(encoder.encode(password));
+        u.setRol("ROLE_USER");
+        appUserRepository.save(u);
     }
 }

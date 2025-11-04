@@ -46,7 +46,7 @@ public class AppUser {
     }
 
     public String getRol() {
-        return null;
+        return rol;
     }
 
     public void setRol(String rol) {
