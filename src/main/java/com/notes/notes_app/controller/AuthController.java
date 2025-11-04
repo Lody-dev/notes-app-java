@@ -38,7 +38,7 @@ public class AuthController {
         }
         catch (DuplicateUsernameException e) {
             model.addAttribute("message", "Username already exists");
-            return "register";
+            return "redirect:/register?usernameExists";
         }
     }
 }
