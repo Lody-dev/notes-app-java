@@ -50,31 +50,31 @@
     <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
         <div class="text-center mb-4">
             <i class="bi bi-person-circle text-primary" style="font-size: 3rem;"></i>
-            <h3 class="mt-2">Iniciar sesión</h3>
+            <h3 class="mt-2">Sing in</h3>
         </div>
 
         <!-- Alerts -->
         <div th:if="${param.error}" class="alert alert-danger py-2">
             <i class="bi bi-exclamation-triangle-fill me-1"></i>
-            Usuario o contraseña incorrectos.
+            Incorrect username or password.
         </div>
         <div th:if="${param.logout}" class="alert alert-info py-2">
             <i class="bi bi-box-arrow-right me-1"></i>
-            Has cerrado sesión correctamente.
+            You have successfully logged out.
         </div>
         <div th:if="${param.registered}" class="alert alert-success py-2">
             <i class="bi bi-check-circle-fill me-1"></i>
-            Registro exitoso. Ahora puedes iniciar sesión.
+            Successful registration. You can now log in.
         </div>
 
         <!-- Login Form -->
         <form th:action="@{/login}" method="post">
             <div class="mb-3">
-                <label for="username" class="form-label">Usuario</label>
+                <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" name="username" class="form-control" placeholder="Ingresa tu usuario" required autofocus />
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
+                <label for="password" class="form-label">Password</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="********" required />
             </div>
 
@@ -82,14 +82,14 @@
 
             <div class="d-grid mt-4">
                 <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> Entrar
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Login
                 </button>
             </div>
         </form>
 
         <div class="text-center mt-3">
             <small class="text-muted">
-                ¿No tienes una cuenta? <a href="/register" class="text-primary text-decoration-none">Regístrate aquí</a>
+                Don't have an account? <a href="/register" class="text-primary text-decoration-none">Register here</a>
             </small>
         </div>
     </div>
