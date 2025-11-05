@@ -1,5 +1,7 @@
 package com.notes.notes_app.controller;
 import com.notes.notes_app.service.NoteService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
 import com.notes.notes_app.model.NoteEntity;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,8 @@ public class httpController {
     }
 
     @GetMapping("/")
-    public String loadMainPage(Model model) {
-        List<NoteEntity> notes = noteService.findOrderedNotes();
+    public String loadMainPage(Model model, @AuthenticationPrincipal User authUser) {
+        List<NoteEntity> notes = noteService.findOrderedNotes(authUser.getUsername());
         model.addAttribute("notes", notes);
         model.addAttribute("status", noteService.checkListStatus(notes));
         return "index";

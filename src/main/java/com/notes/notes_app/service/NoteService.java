@@ -1,6 +1,7 @@
 package com.notes.notes_app.service;
 
 import com.notes.notes_app.controller.NoteNotFoundException;
+import com.notes.notes_app.model.AppUser;
 import com.notes.notes_app.model.NoteEntity;
 import com.notes.notes_app.repository.NoteRepository;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NoteService
@@ -21,10 +23,10 @@ public class NoteService
         this.noteRepository = noteRepository;
     }
 
-    public List<NoteEntity> findOrderedNotes()
+    public List<NoteEntity> findOrderedNotes(String username)
     {
         int i;
-        List<NoteEntity> notes = noteRepository.findAllByOrderByPinnedDescUpdatedAtDesc();
+        List<NoteEntity> notes = noteRepository.findByOwnerUsernameOrderByPinnedDescUpdatedAtDesc(username);
 
         i = -1;
         while(++i < notes.size())
@@ -37,6 +39,16 @@ public class NoteService
                 notes.get(i).setContent(notes.get(i).getContent().substring(0, 50) + "...");
         }
         return notes;
+    }
+
+    public void createNoteFor(int id, String username) {
+        {
+            Optional<NoteEntity> owner = noteRepository.findByIdAndOwnerUsername(id, username);
+        }
+    }
+
+    public void saveEditedNoteFor(NoteEntity noteEntity, String username) {
+        noteRepository.save(noteEntity);
     }
 
     public String checkListStatus(List<NoteEntity> notes)
