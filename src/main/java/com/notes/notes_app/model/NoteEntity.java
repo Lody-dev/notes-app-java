@@ -19,7 +19,9 @@ public class NoteEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
     private Boolean pinned;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", nullable = false)
+    private AppUser owner;
 
     public AppUser getOwner() {
         return owner;
@@ -28,10 +30,6 @@ public class NoteEntity {
     public void setOwner(AppUser owner) {
         this.owner = owner;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id", nullable = false)
-    private AppUser owner;
 
     public Long getId() {
         return id;

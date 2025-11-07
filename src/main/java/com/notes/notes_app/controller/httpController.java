@@ -36,12 +36,12 @@ public class httpController {
     }
 
     @PostMapping("/submit")
-    public String postNote(@ModelAttribute NoteEntity noteEntity)
+    public String postNote(@ModelAttribute NoteEntity noteEntity, @AuthenticationPrincipal User authUser)
     {
         if(noteService.isTitleTooLong(noteEntity.getTitle())) {
             throw new TitleTooLongException("Title too long");
         }
-        noteService.saveEditedNote(noteEntity);
+        noteService.saveEditedNote(noteEntity,  authUser.getUsername());
         return "redirect:/";
     }
 

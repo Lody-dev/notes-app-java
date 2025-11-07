@@ -3,6 +3,7 @@ package com.notes.notes_app.service;
 import com.notes.notes_app.controller.NoteNotFoundException;
 import com.notes.notes_app.model.AppUser;
 import com.notes.notes_app.model.NoteEntity;
+import com.notes.notes_app.repository.AppUserRepository;
 import com.notes.notes_app.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -17,10 +18,12 @@ import java.util.Optional;
 public class NoteService
 {
     private final NoteRepository noteRepository;
+    private final AppUserRepository appUserRepository;
 
-    NoteService(NoteRepository noteRepository)
+    NoteService(NoteRepository noteRepository,  AppUserRepository appUserRepository)
     {
         this.noteRepository = noteRepository;
+        this.appUserRepository= appUserRepository;
     }
 
     public List<NoteEntity> findOrderedNotes(String username)
@@ -41,13 +44,16 @@ public class NoteService
         return notes;
     }
 
-    public void createNoteFor(int id, String username) {
+    public void createNote(int id, String username) {
         {
             Optional<NoteEntity> owner = noteRepository.findByIdAndOwnerUsername(id, username);
         }
     }
 
-    public void saveEditedNoteFor(NoteEntity noteEntity, String username) {
+    public void saveEditedNote(NoteEntity noteEntity, String username) {
+//        noteEntity.setOwner(username);
+        AppUser owner = appUserRepository.findByUsername(username).get();
+        noteEntity.setOwner(owner);
         noteRepository.save(noteEntity);
     }
 
@@ -69,9 +75,9 @@ public class NoteService
         return false;
     }
 
-    public void saveEditedNote(NoteEntity noteEntity) {
-        noteRepository.save(noteEntity);
-    }
+//    public void saveEditedNote(NoteEntity noteEntity) {
+//        noteRepository.save(noteEntity);
+//    }
 
     public void pinNote(Long id) {
         NoteEntity note = noteRepository.findById(id)
