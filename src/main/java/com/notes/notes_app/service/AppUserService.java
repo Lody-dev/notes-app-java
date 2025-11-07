@@ -3,7 +3,6 @@ package com.notes.notes_app.service;
 import com.notes.notes_app.controller.DuplicateUsernameException;
 import com.notes.notes_app.model.AppUser;
 import com.notes.notes_app.repository.AppUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

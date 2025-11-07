@@ -58,11 +58,4 @@ public class AppUser {
     public void setRol(String rol) {
         this.rol = rol;
     }
-
-//    public AppUser(Long id, String username, String password, String rol) {
-//        this.id = id;
-//        this.username = username;
-//        this.password = password;
-//        this.rol = rol;
-//    }
 }

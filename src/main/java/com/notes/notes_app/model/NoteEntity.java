@@ -1,23 +1,22 @@
 package com.notes.notes_app.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class NoteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 255)
     private String title;
     @Column(columnDefinition = "TEXT")
     private String content;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+    @Column(nullable = false)
     private Boolean pinned;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)

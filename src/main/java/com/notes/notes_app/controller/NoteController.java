@@ -5,19 +5,16 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
 import com.notes.notes_app.model.NoteEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-public class httpController {
+public class NoteController {
 
     private final NoteService noteService;
 
-    public httpController(NoteService noteService)
+    public NoteController(NoteService noteService)
     {
         this.noteService = noteService;
     }
@@ -46,7 +43,7 @@ public class httpController {
     }
 
     @PostMapping("/note")
-    public String updateNote(@ModelAttribute NoteEntity noteEntity, Model model) {
+    public String getNote(@ModelAttribute NoteEntity noteEntity, Model model) {
         model.addAttribute("note", noteService.updateNote(noteEntity));
         return "edit-note";
     }
@@ -58,8 +55,10 @@ public class httpController {
     }
 
     @PostMapping("/delete")
-    public String deleteNote(@ModelAttribute NoteEntity noteEntity)
+    public String deleteNote(@ModelAttribute NoteEntity noteEntity, @AuthenticationPrincipal User authUser)
     {
+        Long id = noteEntity.getId();
+        String username = authUser.getUsername();
         noteService.deleteNote(noteEntity);
         return "redirect:/";
     }

@@ -6,10 +6,6 @@ import com.notes.notes_app.model.NoteEntity;
 import com.notes.notes_app.repository.AppUserRepository;
 import com.notes.notes_app.repository.NoteRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +47,6 @@ public class NoteService
     }
 
     public void saveEditedNote(NoteEntity noteEntity, String username) {
-//        noteEntity.setOwner(username);
         AppUser owner = appUserRepository.findByUsername(username).get();
         noteEntity.setOwner(owner);
         noteRepository.save(noteEntity);
@@ -74,10 +69,6 @@ public class NoteService
             return true;
         return false;
     }
-
-//    public void saveEditedNote(NoteEntity noteEntity) {
-//        noteRepository.save(noteEntity);
-//    }
 
     public void pinNote(Long id) {
         NoteEntity note = noteRepository.findById(id)

@@ -1,5 +1,6 @@
 package com.notes.notes_app;
 
+import com.notes.notes_app.model.AppUser;
 import com.notes.notes_app.model.NoteEntity;
 import com.notes.notes_app.repository.NoteRepository;
 import com.notes.notes_app.service.NoteService;
@@ -88,33 +89,39 @@ public class TestNoteService {
         assertEquals("No notes here, add one :)", status);
     }
 
-//    @Test
-//    void checkOrderedNotes()
-//    {
-//        when(noteRepository.findAllByOwnerOrderByPinnedDescUpdatedAtDesc()).thenReturn(simulatedNoteList);
-//
-//        List<NoteEntity> result = noteService.findOrderedNotes();
-//        assertEquals(5,result.size());
-//        assertEquals(simulatedNoteList.get(0), result.get(0));
-//        assertEquals("Empty Note", result.get(2).getTitle());
-//        assertEquals("Empty title", result.get(3).getTitle());
-//        assertEquals("Some content", result.get(3).getContent());
-//        assertEquals(53, result.get(4).getContent().length());
-//    }
-//
-//    @Test
-//    void checkPinNote()
-//    {
-//        when(noteRepository.findAllByOwnerOrderByPinnedDescUpdatedAtDesc()).thenReturn(simulatedNoteList);
-//        when(noteRepository.findById(1L)).thenReturn(Optional.ofNullable(simulatedNoteList.get(1)));
-//
-//        boolean passed = false;
-//        List<NoteEntity> noteList = noteService.findOrderedNotes();
-//        boolean statePinned = noteList.get(1).getPinned();
-//        noteService.pinNote(noteList.get(1).getId());
-//        if(statePinned != noteList.get(1).getPinned())
-//            passed = true;
-//        assertTrue(passed);
-//    }
+    @Test
+    void checkOrderedNotes()
+    {
+        AppUser appUser = new AppUser();
+        appUser.setUsername("test");
+        String username = appUser.getUsername();
+        when(noteRepository.findByOwnerUsernameOrderByPinnedDescUpdatedAtDesc(username)).thenReturn(simulatedNoteList);
+
+        List<NoteEntity> result = noteService.findOrderedNotes(username);
+        assertEquals(5,result.size());
+        assertEquals(simulatedNoteList.get(0), result.get(0));
+        assertEquals("Empty Note", result.get(2).getTitle());
+        assertEquals("Empty title", result.get(3).getTitle());
+        assertEquals("Some content", result.get(3).getContent());
+        assertEquals(53, result.get(4).getContent().length());
+    }
+
+    @Test
+    void checkPinNote()
+    {
+        AppUser appUser = new AppUser();
+        appUser.setUsername("test");
+        String username = appUser.getUsername();
+        when(noteRepository.findByOwnerUsernameOrderByPinnedDescUpdatedAtDesc(username)).thenReturn(simulatedNoteList);
+        when(noteRepository.findById(1L)).thenReturn(Optional.ofNullable(simulatedNoteList.get(1)));
+
+        boolean passed = false;
+        List<NoteEntity> noteList = noteService.findOrderedNotes(username);
+        boolean statePinned = noteList.get(1).getPinned();
+        noteService.pinNote(noteList.get(1).getId());
+        if(statePinned != noteList.get(1).getPinned())
+            passed = true;
+        assertTrue(passed);
+    }
 
 }
