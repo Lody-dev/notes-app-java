@@ -92,11 +92,15 @@ public class TestNoteService {
     @Test
     void checkOrderedNotes()
     {
+        //Arrange
         AppUser appUser = new AppUser();
         appUser.setUsername("test");
         String username = appUser.getUsername();
+
+        //Act
         when(noteRepository.findByOwnerUsernameOrderByPinnedDescUpdatedAtDesc(username)).thenReturn(simulatedNoteList);
 
+        //Assert
         List<NoteEntity> result = noteService.findOrderedNotes(username);
         assertEquals(5,result.size());
         assertEquals(simulatedNoteList.get(0), result.get(0));

@@ -10,21 +10,15 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true, nullable = false, length = 25)
     private String username;
-
     @Column(nullable = false)
     private String password;
-
     @Column(nullable = false)
     private String rol;
-
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NoteEntity> notes =  new ArrayList<>();
-
     public AppUser() {
-
     }
 
     public Long getId() {
